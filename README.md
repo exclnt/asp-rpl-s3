@@ -81,7 +81,7 @@ NEXT_PUBLIC_API_URL=https://api.example.com
 
 ## 📄 Lisensi
 
-Proyek di bawah lisensi [CC BY-ND](LICENSE).
+Proyek di bawah lisensi [CC BY-ND](LICENCE).
 
 ---
 
