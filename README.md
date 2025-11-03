@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 ARDEN PROJEK
 
-## Getting Started
+Aplikasi website yang digunakan untuk mendata dan memantau absensi siswi yang berhalangan hadir karena haid.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🛠️ Teknologi yang Digunakan
+
+* [Next.js](https://nextjs.org/)
+* [React](https://react.dev/)
+* [Node.js](https://nodejs.org/)
+* [Vercel](https://vercel.com/)
+* [Tailwind CSS](https://tailwindcss.com/)
+* [Supabase](https://supabase.com/)
+
+---
+
+## 📦 Instalasi
+
+<!-- 1. Clone repositori ini:
+
+   ```bash
+   git clone https://github.com/username/nama-proyek.git
+   ```
+
+2. Masuk ke folder proyek:
+
+   ```bash
+   cd nama-proyek
+   ```
+
+3. Instal semua dependensi:
+
+   ```bash
+   npm install
+   ```
+
+   atau
+
+   ```bash
+   yarn install
+   ```
+
+4. Jalankan proyek secara lokal:
+
+   ```bash
+   npm run dev
+   ``` -->
+   >belum tersedia
+
+---
+
+## ⚙️ Konfigurasi Environment
+
+<!-- Buat file `.env.local` di root folder dan isi variabel berikut:
+
 ```
+NEXT_PUBLIC_API_URL=https://api.example.com
+``` -->
+>belum tersedia
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Deploy
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+<!-- Proyek ini dapat di-*deploy* langsung ke [Vercel](https://vercel.com/).
 
-## Learn More
+1. Push ke GitHub.
+2. Hubungkan repositori dengan Vercel.
+3. Vercel akan otomatis membangun dan menjalankan proyek. -->
+>belum tersedia
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📸 Screenshot
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+>belum tersedia
+<!-- ![Tampilan Aplikasi](./public/images/screenshot.png) -->
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📄 Lisensi
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Proyek ini dirilis di bawah lisensi [CC BY-ND](LICENSE).
+
+---
+
+## 🤝 Kontributor
+
+Proyek ini dikembangkan oleh tim yang berdedikasi untuk menghadirkan solusi digital dalam pendataan absensi siswi haid di sekolah.
+
+* **Eko Ramadani** — [@EkoRamadn](https://github.com/EkoRamadn)
+  *"User GPT Plant-Free only"*
+
+* **Arga** — [@Woz](https://github.com/arga-nata)
+  *"Senior Expert Vide Coders"*
+
+* **Firman Syah** — [@FirmanSyah2078](https://github.com/FirmanSyah2078)
+  *"Knowlage Programming HTML."*
+
+> Terima kasih atas kerja keras dan kolaborasi luar biasa yang membuat proyek ini terwujud!
+
