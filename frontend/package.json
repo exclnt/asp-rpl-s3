@@ -1,0 +1,46 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build --turbopack",
+    "start": "next start",
+    "lint": "eslint",
+    "format": "npx prettier . --write",
+    "format:check": "npx prettier . --check",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "dependencies": {
+    "next": "15.5.4",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^4.1.2",
+    "@eslint/eslintrc": "^3",
+    "@storybook/addon-a11y": "^10.0.2",
+    "@storybook/addon-docs": "^10.0.2",
+    "@storybook/addon-onboarding": "^10.0.2",
+    "@storybook/addon-vitest": "^10.0.2",
+    "@storybook/nextjs-vite": "^10.0.2",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitest/browser-playwright": "^4.0.6",
+    "@vitest/coverage-v8": "^4.0.6",
+    "eslint": "^9",
+    "eslint-config-next": "15.5.4",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-storybook": "^10.0.2",
+    "playwright": "^1.56.1",
+    "prettier": "^3.6.2",
+    "storybook": "^10.0.2",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "vitest": "^4.0.6"
+  }
+}

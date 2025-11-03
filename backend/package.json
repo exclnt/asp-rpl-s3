@@ -1,0 +1,43 @@
+{
+  "name": "backend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build --turbopack",
+    "start": "next start",
+    "lint": "eslint",
+    "format": "prettier --write .",
+    "format:check": "bun x prettier ./src --check",
+    "test:db": "npx tsx ./src/test/db.test.ts"
+  },
+  "dependencies": {
+    "@next/env": "^15.5.4",
+    "@supabase/ssr": "^0.7.0",
+    "@supabase/supabase-js": "^2.75.1",
+    "dotenv": "^17.2.3",
+    "jose": "^6.1.0",
+    "kjua": "^0.10.0",
+    "next": "15.5.4",
+    "pg": "^8.16.3",
+    "qrcode": "^1.5.4",
+    "qrcode-generator": "^2.0.4",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^20",
+    "@types/pg": "^8.15.5",
+    "@types/qrcode": "^1.5.5",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9.37.0",
+    "eslint-config-next": "15.5.4",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "prettier": "^3.6.2",
+    "typescript": "^5"
+  }
+}
