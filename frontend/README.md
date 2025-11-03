@@ -25,8 +25,62 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Architecture Folder
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+follow the guide Next Project
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+├── public
+|   ├── data/*
+|   └── assets
+|       ├── image/*
+|       └── icon/*
+|
+├── package.json
+├── package-lock.json
+├── README.md
+└── src
+    ├── app
+    |   ├── {pages}
+    |   |    └── page.tsx
+    |   ├── global.css
+    |   ├── loading.tsx
+    |   ├── not-found.tsx
+    |   ├── page.tsx
+    |   └── favicon.ico
+    |
+    ├── components
+    |   ├── ui
+    |   |   └── {more component library}
+    |   |
+    |   ├── custom
+    |   |   └── {nameComponent}
+    |   |        ├── {name}Iu.tsx
+    |   |        └── logic
+    |   |            └── {name}Logic.ts/tsx
+    |   |
+    |   ├── layout
+    |   |   └── {name}Layout.tsx
+    |   |
+    |   └── widget
+    |       └── {name}Widget.tsx
+    |
+    ├── hooks
+    |   └── use{Name}Hook.ts/tsx
+    |
+    ├── lib
+    |   ├── constants.ts
+    |   └── auth.ts
+    └── model/*
+```
+
+View
+[Ked Architecture](https://github.com/exclnt/cheat-sheet-education/blob/main/architecture/next.md)
+
+### Note
+
+> Pastikan Menerapkan Git Flow setiap Perubahan komponen (ikuti intruksi [CONTIBUTING](../CONTRIBUTING.md)). 
+
+>Fokus Selesaikan komponen yang dikerjakan sebelum mengerjakan Komponen Lain.
+
+>Jangan install Depedensi Baru Sebelum sebelum Konfirmasi. 
