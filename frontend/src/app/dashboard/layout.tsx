@@ -21,7 +21,7 @@ export default function DashboardLayout({ children }: Readonly<{ children: React
       <div className={`${inter.variable} antialiased`}>
         <SidebarProvider>
           <AppSidebar />
-          <SidebarInset className='border-2 border-sidebar-accent bg-sidebar'>
+          <SidebarInset className='border-2 border-sidebar-accent bg-background'>
             <header className="flex h-16 shrink-0 items-center gap-2">
               <div className="flex items-center gap-2 px-4">
                 <SidebarTrigger className="-ml-1 " />
