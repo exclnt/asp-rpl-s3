@@ -22,6 +22,8 @@ export async function POST(req: Request) {
       console.error('Supabase Error:', adminError.message);
     }
 
+    console.log(adminData)
+
     if (adminData) {
       const token = await new SignJWT({
         id: adminData.id,
