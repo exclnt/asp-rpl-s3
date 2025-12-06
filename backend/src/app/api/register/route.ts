@@ -4,12 +4,18 @@ import { NextResponse } from "next/server"
 export async function POST(req: Request) {
     try {
         const { username, password, nama_petugas, role } = await req.json()
-        const { data: registerData, error: registerError } = await supabase.from('tbl_petugas').insert({
-            nama_petugas,
-            username,
-            role,
-            password,
-        }).select("username").single()
+        const { data: nextNo } = await supabase.rpc("get_next_petugas_no")
+        const { data: registerData, error: registerError } = await supabase
+            .from("tbl_petugas")
+            .insert({
+                id: nextNo,
+                nama_petugas,
+                username,
+                role,
+                password,
+            })
+            .select("username")
+            .single()
 
         if (registerError?.code === '23505') throw new Error("Username sudah terdaftar!");
         if (registerError) throw new Error(registerError.message)
