@@ -19,79 +19,116 @@ export async function POST(req: Request) {
     const skipped = [];
 
     for (const item of items) {
-      const { text, iconUrl, iconPercent = 0.2 } = item;
-      const tmpdt = JSON.parse(text);
+      try {
+        const { text, iconUrl, iconPercent = 0.2 } = item;
+        const tmpdt = JSON.parse(text);
 
-      const { data: existingQr, error: fetchError } = await supabase
-        .from('tbl_qrcode')
-        .select('id')
-        .eq('id_siswi', tmpdt.id)
-        .single();
+        const { data: existingQr, error: fetchError } = await supabase
+          .from('tbl_qrcode')
+          .select('id')
+          .eq('id_siswi', tmpdt.id)
+          .maybeSingle();
 
-      if (fetchError && fetchError.code !== 'PGRST116') throw fetchError;
+        if (fetchError) throw fetchError;
 
-      if (existingQr) {
+        if (existingQr) {
+          skipped.push({
+            id_siswi: tmpdt.id,
+            message: 'User sudah memiliki QR code',
+          });
+          continue;
+        }
+
+        const svg = await QRCode.toString(text, {
+          type: 'svg',
+          errorCorrectionLevel: 'H',
+          width: size,
+        });
+
+        let finalSvg = svg;
+
+        if (iconUrl) {
+          try {
+            const iconResp = await fetch(iconUrl);
+
+            if (iconResp.ok) {
+              const contentType =
+                iconResp.headers.get('content-type') || 'image/png';
+              const arrayBuffer = await iconResp.arrayBuffer();
+              const iconBase64 = Buffer.from(arrayBuffer).toString('base64');
+              const iconDataUri = `data:${contentType};base64,${iconBase64}`;
+
+              const pct = Math.min(Math.max(Number(iconPercent), 0.05), 0.4);
+              const iconSize = size * pct;
+              const iconPos = (size - iconSize) / 2;
+
+              const imageTag = `<image href="${iconDataUri}" x="${iconPos}" y="${iconPos}" width="${iconSize}" height="${iconSize}" />`;
+              const insertIndex = svg.lastIndexOf('</svg>');
+              finalSvg =
+                svg.slice(0, insertIndex) + imageTag + svg.slice(insertIndex);
+            }
+          } catch (err) {
+            console.log('Icon load failed:', err);
+          }
+        }
+        const svgBuffer = Buffer.from(finalSvg, 'utf-8');
+        const fileName = `qr-${Date.now()}-${Math.random().toString(36).slice(2)}.svg`;
+
+        const { error: uploadError } = await supabase.storage
+          .from('qr')
+          .upload(fileName, svgBuffer, {
+            contentType: 'image/svg+xml',
+          });
+
+        if (uploadError) {
+          skipped.push({ id_siswi: tmpdt.id, message: 'Upload QR gagal' });
+          continue;
+        }
+
+        const {
+          data: { publicUrl },
+        } = supabase.storage.from('qr').getPublicUrl(fileName);
+
+        const { data: nextNo, error: rpcError } =
+          await supabase.rpc('get_next_qrcode_no');
+
+        if (rpcError || !nextNo) {
+          skipped.push({ id_siswi: tmpdt.id, message: 'Gagal ambil nomor QR' });
+          continue;
+        }
+
+        const { error: insertError } = await supabase
+          .from('tbl_qrcode')
+          .insert({
+            id: nextNo,
+            id_siswi: tmpdt.id,
+            qrcode_url: publicUrl,
+          });
+
+        if (insertError) {
+          skipped.push({
+            id_siswi: tmpdt.id,
+            message: 'FAILURE: ' + insertError.message,
+          });
+          continue;
+        }
+
+        console.log(JSON.stringify(insertError));
+
+        results.push({
+          text,
+          fileName,
+          url: publicUrl,
+        });
+      } catch (innerErr) {
+        console.log(innerErr);
         skipped.push({
-          id_siswi: tmpdt.id,
-          message: 'User sudah memiliki QR code',
+          message:
+            innerErr instanceof Error
+              ? innerErr.message
+              : 'Error tidak diketahui',
         });
-        continue;
       }
-
-      const svg = await QRCode.toString(text, {
-        type: 'svg',
-        errorCorrectionLevel: 'H',
-        width: size,
-      });
-
-      let finalSvg = svg;
-
-      if (iconUrl) {
-        const iconResp = await fetch(iconUrl);
-        const contentType = iconResp.headers.get('content-type') || 'image/png';
-        const arrayBuffer = await iconResp.arrayBuffer();
-        const iconBase64 = Buffer.from(arrayBuffer).toString('base64');
-        const iconDataUri = `data:${contentType};base64,${iconBase64}`;
-
-        const pct = Math.min(Math.max(Number(iconPercent), 0.05), 0.4);
-        const iconSize = size * pct;
-        const iconPos = (size - iconSize) / 2;
-
-        const imageTag = `<image href="${iconDataUri}" x="${iconPos}" y="${iconPos}" width="${iconSize}" height="${iconSize}" preserveAspectRatio="xMidYMid meet" />`;
-
-        const insertIndex = svg.lastIndexOf('</svg>');
-        finalSvg =
-          svg.slice(0, insertIndex) + imageTag + svg.slice(insertIndex);
-      }
-
-      const svgBuffer = Buffer.from(finalSvg, 'utf-8');
-      const fileName = `qr-${Date.now()}-${Math.random().toString(36).slice(2)}.svg`;
-
-      const { error: uploadError } = await supabase.storage
-        .from('qr')
-        .upload(fileName, svgBuffer, {
-          contentType: 'image/svg+xml',
-          upsert: false,
-        });
-
-      if (uploadError) throw uploadError;
-
-      const {
-        data: { publicUrl },
-      } = supabase.storage.from('qr').getPublicUrl(fileName);
-
-      const { data: nextNo } = await supabase.rpc('get_next_qrcode_no');
-      const { error: insertError } = await supabase
-        .from('tbl_qrcode')
-        .insert({ id: nextNo, id_siswi: tmpdt.id, qrcode_url: publicUrl });
-
-      if (insertError) throw insertError;
-
-      results.push({
-        text,
-        fileName,
-        url: publicUrl,
-      });
     }
 
     return NextResponse.json(
@@ -103,7 +140,7 @@ export async function POST(req: Request) {
           generatedCount: results.length,
           generated: results,
           skippedCount: skipped.length,
-          skipped: skipped,
+          skipped,
         },
       },
       {
