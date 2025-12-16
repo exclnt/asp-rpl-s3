@@ -44,6 +44,7 @@ function TabsTrigger({
       className={cn(
         "flex flex-row w-[150px] h-fit gap-[10px] p-[10px] bg-[#151419] items-center justify-center text-[#B3B3B3] border-r-2 border-[#27272A] last:border-r-0",
         "data-[state=active]:bg-[#27272A] data-[state=active]:text-white",
+        "hover:text-white hover:bg-[#1f1e23] transition-colors duration-200",
         "text-[15px] font-normal",
         className
       )}

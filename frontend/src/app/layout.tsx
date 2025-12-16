@@ -21,7 +21,12 @@ export default function RootLayout({
 }>) {
   return (
     <html>
-      <body className={`${inter.variable} font-sans antialiased dark`}>{children}</body>
+      <body className={`${inter.variable} font-sans antialiased dark`}>
+        <ErrorProvider>
+          {children}
+          <ErrorDialog />
+        </ErrorProvider>
+      </body>
     </html>
   );
 }

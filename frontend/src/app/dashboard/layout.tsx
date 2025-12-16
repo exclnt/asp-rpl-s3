@@ -1,11 +1,10 @@
 import { AppSidebar } from '@/components/app-sidebar';
 import HBread from '@/components/custom/HBread';
-import { Button } from '@/components/custom/ui/buttons';
 import { Separator } from '@/components/ui/separator';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import Iconify from '@/components/custom/ui/Iconify';
+import HeaderActions from './HeaderActions';
 
 export const metadata: Metadata = {
   title: 'Dashboard',
@@ -32,22 +31,7 @@ export default function DashboardLayout({ children }: Readonly<{ children: React
                 />
                 <HBread />
               </div>
-
-              <div className='flex flex-row w-fit h-fit gap-[10px] p-[10px] justify-end'>
-                <Button
-                  variant="desktop_header"
-                  font="desktop">
-                  <Iconify icon="tabler:notification" />
-                  Notification
-                </Button>
-                <Button
-                  variant="desktop_header"
-                  font="desktop">
-                  <Iconify icon="material-symbols:logout" />
-                  Logout
-                </Button>
-              </div>
-
+              <HeaderActions />
             </header>
             <hr className="w-full border border-[#27272A]" />
             <div className=" gap-4 p-4 pt-0">{children}</div>
